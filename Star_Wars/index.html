@@ -118,87 +118,89 @@ h1 {
 
 // Game Start
 // Player chooese character by clicking on the fighter's picture. The player will fight that character for the rest of the game.
-	var characters = [
-		["Dominic Toretto", 160, 6, 8, '<img src="assets/images/dom2.jpg" class="image">'],
-		["Brian O Conner", 140, 9, 4, '<img src="assets/images/brian.jpg" class="image">'],
-		["Letty", 190, 4, 12, '<img src="assets/images/mia.jpg" class="image">'],
-		["Han", 150, 6, 7, '<img src="assets/images/han.jpg" class="image">'],
-	];
+		
+var dominic = {
+	name: "Dominic Toretto", 
+	health: 160, 
+	attack: 6, 
+	counterAttack: 8, 
+	image: '<img src="assets/images/dom2.jpg" class="image">'
+};
+var brian = {
+	name: "Brian O Conner", 
+	health: 140, 
+	attack: 4, 
+	counterAttack: 10, 
+	image: '<img src="assets/images/brian.jpg" class="image">'
+};
+var mia = {
+	name: "Mia", 
+	health: 190, 
+	attack: 4, 
+	counterAttack: 12, 
+	image: '<img src="assets/images/mia.jpg" class="image">'
+};
+var han = {
+	name: "Han", 
+	health: 150, 
+	attack: 6, 
+	counterAttack: 7, 
+	image: '<img src="assets/images/han.jpg" class="image">'
+};
+
+var characters = [dominic, brian, mia, han];
+var selectedCharacter = [];
+var enemy = [];
+var enemiesLeft = [];
+
 
 	// Loop through characters and display each stat specified. 
-	for (var i = 0; i < characters.length; i++) {
+	for (var characterIndex = 0; characterIndex < characters.length; characterIndex++) {
 		var characterBox = $('<div>')
 		$(characterBox).addClass("characters")
-					   .html(characters[i][0])
-					   .append(characters[i][4]) 
-					   .append(characters[i][1]);	  
-	    $('#selectChar').append(characterBox);
+					   .html(characters[characterIndex].name)
+					   .append(characters[characterIndex].image)
+					   .append(characters[characterIndex].health);	  
+	    $('#selectChar').append(characterBox); //display characters in #selectChar area 
 	}; // End loop for listing characters 
 
-// The player chooses an opponent by clicking on an enemy's picture. 
-var enemyCharacters = [];
+	// Button to fight!
+	$("#fight").html('<p><a class="btn btn-primary btn-lg" href="#" role="button">RACE!</a></p>');
 
-$("#fight").html('<p><a class="btn btn-primary btn-lg" href="#" role="button">RACE!</a></p>');
+	// Onclick selects character and changes class .clickedcharacter
+	$(".characters").on("click", function(){ // Onclick calls on .characters
+	    $(this).addClass("clickedcharacter").removeClass("characters");// Add class and remove class on "clicked" item
+	    console.log(characters[characterIndex] );
 
-// Onclick selects character and changes class .clickedcharacter
-$(".characters").on("click", function(){ // Onclick calls on .characters
+	    // If .characters move items to the defender section. Add and remove classes
+	    if ($(".characters").hasClass('characters')){ //if has class characters
+	    	$(".characters").appendTo('#defender') // append to #defender section
+	    					.removeClass("characters") 
+	    					.addClass("charactersRemaining");
+	    };
 
-	 // Add class and remove class on "clicked" item
-    $(this).addClass("clickedcharacter").removeClass("characters");
-
-    // If .characters move items to the defender section. Add and remove classes
-    if ($(".characters").hasClass('characters')){ //if has class characters
-    	$(".characters").appendTo('#defender') // append to #defender section
-    					.removeClass("characters") 
-    					.addClass("charactersRemaining");
-    };
-
-    // Select enemy and move other characters to availToAttk section. Add class removce class
-	$(".charactersRemaining").on("click", function(){ // OnClick calls on .charactersRemaining
-		    $(this).addClass("enemy").removeClass("charactersRemaining"); // Adds and removes class on "this" clicked item
-		    $(".charactersRemaining").removeClass("charactersRemaining").addClass("charactersLeft");
-		    $('.charactersLeft').appendTo('#availToAttk'); // Append .charactersLeft to availToAttk section
+	    // Select enemy and move other characters to availToAttk section. Add class removce class
+		$(".charactersRemaining").on("click", function(){ // OnClick calls on .charactersRemaining
+			    $(this).addClass("enemy").removeClass("charactersRemaining"); // Adds and removes class on "this" clicked item
+			    $(".charactersRemaining").removeClass("charactersRemaining").addClass("charactersLeft");
+			    $('.charactersLeft').appendTo('#availToAttk'); // Append .charactersLeft to availToAttk section
+		});
 	});
-});
 
 
+// If there is no character in charater area, alert: 'You have been defeated. GAME OVER!!'
 
-	// Creates a list of characters on the page. 
-		// var characterBox = $('<div>')
-		// 	 .append(characters.dominic[0],characters.dominic[4], characters.dominic[1])
-		// 	 .addClass("characters")
-		// 	$('#selectChar').append(characterBox);
+// if there is no defender in defender area, alert:
+			// 'You have defeated ________, you can choose to fight another enemy'
 
-		// var characterBox2 = $('<div>')
-		// 	 .append(characters.brian[0],characters.brian[4], characters.brian[1])
-		// 	 .addClass("characters")
-		// 	$('#selectChar').append(characterBox2);
+// If there are no characters in available to attack, alert: 'You Won!!! GAME OVER!!'
 
-		// var characterBox3 = $('<div>')
-		// 	 .append(characters.mia[0],characters.mia[4], characters.mia[1])
-		// 	 .addClass("characters")
-		// 	$('#selectChar').append(characterBox3);
-
-		// var characterBox4 = $('<div>')
-		// 	 .append(characters.han[0],characters.han[4], characters.han[1])
-		// 	 .addClass("characters")
-		// 	$('#selectChar').append(characterBox4);
-
-
-
-
-
-
-
-			// var char = $('<div>')
-			// 	.append(characters.dominic[0], characters.dominic[4], characters.dominic[1])
-			// 		 .addClass("characters");
-
-			// $(char).append(brian[0], brian[4], brian[1])
-			// 		 .addClass("characters");
-
-			
-		// };
+// If there is a character in character section and there is a character in the defender area, activate Race button. 
+	// When race button is pressed,
+		// Health of character goes down by attack of defender
+		// Health of defender goes down by attack of character
+		// Attack of character goes up by x.    example: people[2][3][1] = "brown";
+		// Alert the user: 'You attacked _________ for __ damage. __________ attacked back for 25 damage!'
 
 
 
@@ -218,11 +220,6 @@ $(".characters").on("click", function(){ // Onclick calls on .characters
 
 // The opponent character will instantly counter the attack. When that happens, the player's character will lose some of their 'hp'. These points are shown at the bottom of the player character's picture. 
 
-
-// 'You attacked _________ for __ damage. __________ attacked back for 25 damage!'
-// 'You have been defeated. GAME OVER!!'
-// 'You have defeated ________, you can choose to fight another enemy'
-// 'You Won!!! GAME OVER!!'
 
 
 
