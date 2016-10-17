@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Crystal Game</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<style>
+body {
+	max-width: 960px;
+	background-image: url("assets/images/background.jpg");
+}
+h1,h2,h3,h4,h5 {
+	color: #F0F8FF;
+}
+h1 {
+	text-align: center;
+}
+.btn {
+	margin: 20px;
+}
+.container {
+
+}
+.characters {
+	background: #fff;
+	border: 2px solid #000;
+	float: left;
+	height: auto;
+	text-align: center;
+	max-width: 200px;
+}
+.clickedcharacter {
+	background: #F0F8FF;
+	border: 2px solid #000;
+	float: left;
+	height: auto;
+	text-align: center;
+	max-width: 200px;
+}
+.enemy {
+	background:	#FF0000;
+	border: 2px solid #000;
+	float: left;
+	height: auto;
+	text-align: center;
+	max-width: 200px;
+}
+.charactersRemaining{
+	background: #FF0000;
+	border: 2px solid #000;
+	float: left;
+	height: auto;
+	text-align: center;
+	max-width: 200px;
+}
+.charactersLeft {
+	background: #FF0000;
+	border: 2px solid #000;
+	float: left;
+	height: auto;
+	text-align: center;
+	max-width: 200px;
+}
+.image{
+	max-width: 80%;
+	margin: 0px 20px 0px 20px;
+}
+#availToAttk {
+	clear: both;
+}
+</style>
+</head>
+
+
+	<body>
+<div class="container">
+<div class="row">
+	<header>
+		<h1>Fast and Furious RPG!</h1>
+	</header>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+	<h2>Select Your Character</h2>
+	<div id="selectChar">
+	</div>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+	<h2>Defender</h2>
+	<div id="defender"></div>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+	<div id="fight"></div><!-- Button -->
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+	<h2>AvailToAttk</h2>
+	<div id="availToAttk"></div>
+</div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">
+
+// Game Start
+// Player chooese character by clicking on the fighter's picture. The player will fight that character for the rest of the game.
+	var characters = [
+		["Dominic Toretto", 160, 6, 8, '<img src="assets/images/dom2.jpg" class="image">'],
+		["Brian O Conner", 140, 9, 4, '<img src="assets/images/brian.jpg" class="image">'],
+		["Letty", 190, 4, 12, '<img src="assets/images/mia.jpg" class="image">'],
+		["Han", 150, 6, 7, '<img src="assets/images/han.jpg" class="image">'],
+	];
+
+	// Loop through characters and display each stat specified. 
+	for (var i = 0; i < characters.length; i++) {
+		var characterBox = $('<div>')
+		$(characterBox).addClass("characters")
+					   .html(characters[i][0])
+					   .append(characters[i][4]) 
+					   .append(characters[i][1]);	  
+	    $('#selectChar').append(characterBox);
+	}; // End loop for listing characters 
+
+// The player chooses an opponent by clicking on an enemy's picture. 
+var enemyCharacters = [];
+
+$("#fight").html('<p><a class="btn btn-primary btn-lg" href="#" role="button">RACE!</a></p>');
+
+// Onclick selects character and changes class .clickedcharacter
+$(".characters").on("click", function(){ // Onclick calls on .characters
+
+	 // Add class and remove class on "clicked" item
+    $(this).addClass("clickedcharacter").removeClass("characters");
+
+    // If .characters move items to the defender section. Add and remove classes
+    if ($(".characters").hasClass('characters')){ //if has class characters
+    	$(".characters").appendTo('#defender') // append to #defender section
+    					.removeClass("characters") 
+    					.addClass("charactersRemaining");
+    };
+
+    // Select enemy and move other characters to availToAttk section. Add class removce class
+	$(".charactersRemaining").on("click", function(){ // OnClick calls on .charactersRemaining
+		    $(this).addClass("enemy").removeClass("charactersRemaining"); // Adds and removes class on "this" clicked item
+		    $(".charactersRemaining").removeClass("charactersRemaining").addClass("charactersLeft");
+		    $('.charactersLeft').appendTo('#availToAttk'); // Append .charactersLeft to availToAttk section
+	});
+});
+
+
+
+	// Creates a list of characters on the page. 
+		// var characterBox = $('<div>')
+		// 	 .append(characters.dominic[0],characters.dominic[4], characters.dominic[1])
+		// 	 .addClass("characters")
+		// 	$('#selectChar').append(characterBox);
+
+		// var characterBox2 = $('<div>')
+		// 	 .append(characters.brian[0],characters.brian[4], characters.brian[1])
+		// 	 .addClass("characters")
+		// 	$('#selectChar').append(characterBox2);
+
+		// var characterBox3 = $('<div>')
+		// 	 .append(characters.mia[0],characters.mia[4], characters.mia[1])
+		// 	 .addClass("characters")
+		// 	$('#selectChar').append(characterBox3);
+
+		// var characterBox4 = $('<div>')
+		// 	 .append(characters.han[0],characters.han[4], characters.han[1])
+		// 	 .addClass("characters")
+		// 	$('#selectChar').append(characterBox4);
+
+
+
+
+
+
+
+			// var char = $('<div>')
+			// 	.append(characters.dominic[0], characters.dominic[4], characters.dominic[1])
+			// 		 .addClass("characters");
+
+			// $(char).append(brian[0], brian[4], brian[1])
+			// 		 .addClass("characters");
+
+			
+		// };
+
+
+
+// Game Start
+
+// Player chooese character by clicking on the fighter's picture. The player will fight that character for the rest of the game.
+
+// Player must then defeat all the remaining fighters. Enemies should be moved to a different area of the screen. 
+
+// The player chooses an opponent by clicking on an enemy's picture. 
+
+// Once the player selects an opponent, that enemy is moved to a 'defender area'
+
+// The player will now be able to click the 'attack' button. 
+
+// Whenever the player clicks 'attack', their character damagers the defender. The opponent will lose 'HP'. These points are displayed at the bottom of the defender's picture. 
+
+// The opponent character will instantly counter the attack. When that happens, the player's character will lose some of their 'hp'. These points are shown at the bottom of the player character's picture. 
+
+
+// 'You attacked _________ for __ damage. __________ attacked back for 25 damage!'
+// 'You have been defeated. GAME OVER!!'
+// 'You have defeated ________, you can choose to fight another enemy'
+// 'You Won!!! GAME OVER!!'
+
+
+
+
+
+
+</script>
+	</body>
+</html>
