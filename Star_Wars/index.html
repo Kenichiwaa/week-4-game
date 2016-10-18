@@ -33,7 +33,7 @@ h1 {
 	float: left;
 	height: auto;
 	text-align: center;
-	max-width: 250px;
+	max-width: 200px;
 	width: 100%;
 }
 .clickedcharacter {
@@ -84,7 +84,6 @@ h1 {
 
 <div class="container">
 <div class="row">
-	<h2>Select Your Character</h2>
 	<div id="selectCharacters">
 	</div>
 </div>
@@ -92,21 +91,22 @@ h1 {
 
 <div class="container">
 <div class="row">
-	<h2>Defender</h2>
+	<h2>Your Character</h2>
 	<div id="defender"></div>
 </div>
 </div>
 
 <div class="container">
 <div class="row">
-	<div id="fight"></div><!-- Button -->
+	<h2>Enemy</h2>
+	<div id="selectedenemy"></div><!-- Button -->
 </div>
 </div>
 
 <div class="container">
 <div class="row">
-	<h2>AvailToAttk</h2>
-	<div id="availToAttk"></div>
+	<h2>Defeated</h2>
+	<div id="defeated"></div>
 </div>
 </div>
 
@@ -172,7 +172,7 @@ var enemy = [];
 var enemiesLeft = [];
 
 
-	// Display characters
+	// Display characters in div #selectChracters
 	for (var characterIndex = 0; characterIndex < characters.length; characterIndex++) {
 	    $('#selectCharacters').append(characters); 
 	};
@@ -182,21 +182,26 @@ var enemiesLeft = [];
 
 	//Select Character
 	$(".characters").on("click", function(){
-	    $(this).addClass("clickedcharacter").removeClass("characters");
-	    if ($(".characters").hasClass('characters')){ 
-	    	$(".characters").appendTo('#defender')
-	    					.removeClass("characters") 
-	    					.addClass("charactersRemaining");
-	    }; // End if statement
+	    $(this).addClass("clickedcharacter").removeClass("characters").appendTo("#defender");
+	    if ($(".characters").hasClass("characters")){ 
+	    	$(".characters").addClass("charactersRemaining").removeClass("characters");
+	    };
 
-	    // Select Enemy
-		$(".charactersRemaining").on("click", function(){
-			    $(this).addClass("enemy").removeClass("charactersRemaining");
-			    $('.charactersRemaining').appendTo('#availToAttk');
-		}); // End onClick .charactersRemaining
+	// Select Enemy
+	$(".charactersRemaining").on("click", function(){
+		    $(this).addClass('enemy').removeClass('charactersRemaining');
+		    $(".enemy").append('#selectedenemy');
+	}); // End onClick .charactersRemaining
 
 	}); // End onClick .characters
 // console.log(".clickedcharacter"characters.data());
+
+
+
+
+
+
+
 
     $('.btn').on('click', function(){
         if($('#selectCharacters .clickedcharacter').length &&  $('#defender .enemy').length)
