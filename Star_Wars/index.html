@@ -57,14 +57,6 @@ h1 {
 	text-align: center;
 	max-width: 200px;
 }
-.charactersLeft {
-	background: #FF0000;
-	border: 2px solid #000;
-	float: left;
-	height: auto;
-	text-align: center;
-	max-width: 200px;
-}
 .image{
 	max-width: 80%;
 	margin: 0px 20px 0px 20px;
@@ -119,6 +111,14 @@ h1 {
 // Game Start
 // Player chooese character by clicking on the fighter's picture. The player will fight that character for the rest of the game.
 		
+
+
+
+
+
+
+
+
 var dominic = {
 	name: "Dominic Toretto", 
 	health: 160, 
@@ -170,7 +170,7 @@ var enemiesLeft = [];
 	// Onclick selects character and changes class .clickedcharacter
 	$(".characters").on("click", function(){ // Onclick calls on .characters
 	    $(this).addClass("clickedcharacter").removeClass("characters");// Add class and remove class on "clicked" item
-	    console.log(characters[characterIndex] );
+	    console.log([characterIndex].health );
 
 	    // If .characters move items to the defender section. Add and remove classes
 	    if ($(".characters").hasClass('characters')){ //if has class characters
@@ -181,11 +181,35 @@ var enemiesLeft = [];
 
 	    // Select enemy and move other characters to availToAttk section. Add class removce class
 		$(".charactersRemaining").on("click", function(){ // OnClick calls on .charactersRemaining
-			    $(this).addClass("enemy").removeClass("charactersRemaining"); // Adds and removes class on "this" clicked item
-			    $(".charactersRemaining").removeClass("charactersRemaining").addClass("charactersLeft");
-			    $('.charactersLeft').appendTo('#availToAttk'); // Append .charactersLeft to availToAttk section
+			    $(this).addClass("enemy").removeClass("charactersRemaining").removeClass("clickedcharacter"); // Adds and removes class on "this" clicked item
+			    $('.charactersRemaining').appendTo('#availToAttk'); // Append .charactersLeft to availToAttk section
 		});
+	console.log(".enemy".health);
 	});
+
+
+    $('.btn').on('click', function(){
+        if($('#selectChar .clickedcharacter').length &&  $('#defender .enemy').length)
+        {
+            damage = $('.charContainer').data('attack');
+            counter = $('#fighter .foes').data('cattack');
+            playerHP = $('.charContainer').data('hpp');
+            enemyHP = $('#fighter .foes').data('hpp');
+            playerHP -= counter;
+            console.log(playerHP);
+            enemyHP -= damage;
+            console.log(enemyHP);
+            console.log("#selectChar.clickedcharacter.name");
+
+        }
+    })
+
+
+
+
+
+
+
 
 
 // If there is no character in charater area, alert: 'You have been defeated. GAME OVER!!'
