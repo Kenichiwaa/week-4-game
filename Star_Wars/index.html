@@ -80,7 +80,7 @@ h1 {
 <div class="container">
 <div class="row">
 	<h2>Select Your Character</h2>
-	<div id="selectChar">
+	<div id="selectCharacters">
 	</div>
 </div>
 </div>
@@ -112,13 +112,6 @@ h1 {
 // Player chooese character by clicking on the fighter's picture. The player will fight that character for the rest of the game.
 		
 
-
-
-
-
-
-
-
 var dominic = {
 	name: "Dominic Toretto", 
 	health: 160, 
@@ -148,58 +141,70 @@ var han = {
 	image: '<img src="assets/images/han.jpg" class="image">'
 };
 
-var characters = [dominic, brian, mia, han];
+var dominicBox = $('<div>')
+    .append(dominic.name,dominic.image,dominic.health)
+    .addClass('characters')
+    .data('health', dominic.health).data('attack', dominic.attack );
+
+var brianBox = $('<div>')
+    .append(brian.name,brian.image,brian.health)
+    .addClass('characters')
+    .data('health', brian.health).data('attack', brian.attack );
+
+var miaBox = $('<div>')
+    .append(mia.name,mia.image,mia.health)
+    .addClass('characters')
+    .data('health', mia.health).data('attack', mia.attack );
+
+var hanBox = $('<div>')
+    .append(han.name,han.image,han.health)
+    .addClass('characters')
+    .data('health', han.health).data('attack', han.attack );
+
+var characters = [dominicBox, brianBox, miaBox, hanBox];
 var selectedCharacter = [];
 var enemy = [];
 var enemiesLeft = [];
 
 
-	// Loop through characters and display each stat specified. 
+	// Display characters
 	for (var characterIndex = 0; characterIndex < characters.length; characterIndex++) {
-		var characterBox = $('<div>')
-		$(characterBox).addClass("characters")
-					   .html(characters[characterIndex].name)
-					   .append(characters[characterIndex].image)
-					   .append(characters[characterIndex].health);	  
-	    $('#selectChar').append(characterBox); //display characters in #selectChar area 
-	}; // End loop for listing characters 
+	    $('#selectCharacters').append(characters); 
+	};
 
-	// Button to fight!
+	// Fight Button
 	$("#fight").html('<p><a class="btn btn-primary btn-lg" href="#" role="button">RACE!</a></p>');
 
-	// Onclick selects character and changes class .clickedcharacter
-	$(".characters").on("click", function(){ // Onclick calls on .characters
-	    $(this).addClass("clickedcharacter").removeClass("characters");// Add class and remove class on "clicked" item
-	    console.log([characterIndex].health );
-
-	    // If .characters move items to the defender section. Add and remove classes
-	    if ($(".characters").hasClass('characters')){ //if has class characters
-	    	$(".characters").appendTo('#defender') // append to #defender section
+	//Select Character ('#fighter .foes').data('cattack')
+	$(".characters").on("click", function(){
+	    $(this).addClass("clickedcharacter").removeClass("characters");
+	    if ($(".characters").hasClass('characters')){ 
+	    	$(".characters").appendTo('#defender')
 	    					.removeClass("characters") 
 	    					.addClass("charactersRemaining");
 	    };
 
-	    // Select enemy and move other characters to availToAttk section. Add class removce class
-		$(".charactersRemaining").on("click", function(){ // OnClick calls on .charactersRemaining
-			    $(this).addClass("enemy").removeClass("charactersRemaining").removeClass("clickedcharacter"); // Adds and removes class on "this" clicked item
-			    $('.charactersRemaining').appendTo('#availToAttk'); // Append .charactersLeft to availToAttk section
+	    // Select Enemy
+		$(".charactersRemaining").on("click", function(){
+			    $(this).addClass("enemy").removeClass("charactersRemaining");
+			    $('.charactersRemaining').appendTo('#availToAttk');
 		});
-	console.log(".enemy".health);
+
 	});
 
 
     $('.btn').on('click', function(){
-        if($('#selectChar .clickedcharacter').length &&  $('#defender .enemy').length)
+        if($('#selectCharacters .clickedcharacter').length &&  $('#defender .enemy').length)
         {
-            damage = $('.charContainer').data('attack');
+            damage = $(this).data('attack');
             counter = $('#fighter .foes').data('cattack');
             playerHP = $('.charContainer').data('hpp');
             enemyHP = $('#fighter .foes').data('hpp');
             playerHP -= counter;
             console.log(playerHP);
             enemyHP -= damage;
-            console.log(enemyHP);
-            console.log("#selectChar.clickedcharacter.name");
+            console.log();
+            console.log("#selectCharacters.clickedcharacter.name");
 
         }
     })
