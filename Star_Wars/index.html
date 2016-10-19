@@ -12,29 +12,33 @@
 body {
 	margin: 0 auto;
 	max-width: 960px;
+	width: 100%;
 	background-image: url("assets/images/pokemon_background2.jpg");
 	background-position: center top;
+	text-align: center;
 
 }
 h1,h2,h3,h4,h5 {
 	color: #F0F8FF;
 }
-h1 {
+
+header {
+	margin-top: 0px;
 }
-.btn {
+#fight {
+	clear: both;
+	margin-top: 800px;
 	margin: 20px;
 }
-.container {
 
-}
 .characters {
 	background: #fff;
 	border: 2px solid #000;
-	float: left;
 	height: auto;
 	text-align: center;
-	max-width: 250px;
-	width: 100%;
+	max-width: 20%;
+	margin: 10px;
+	display: inline-block;
 }
 .clickedcharacter {
 	background: #F0F8FF;
@@ -42,8 +46,18 @@ h1 {
 	float: left;
 	height: auto;
 	text-align: center;
-	max-width: 250px;
+	max-width: 300px;
 	width: 100%;
+}
+.charactersLeft {
+	background: #FF0000;
+	border: 2px solid #000;
+	display: inline-block;
+	height: auto;
+	max-width: 20%;
+	margin: 10px;
+	display: inline-block;
+
 }
 .enemy {
 	background:	#FF0000;
@@ -51,65 +65,121 @@ h1 {
 	float: left;
 	height: auto;
 	text-align: center;
-	max-width: 250px;
+	max-width: 300px;
 	width: 100%;
 }
 .charactersRemaining{
 	background: #FF0000;
 	border: 2px solid #000;
-	float: left;
+	display: inline-block;
 	height: auto;
-	text-align: center;
-	max-width: 250px;
-	width: 100%;
+	max-width: 20%;
+	margin: 10px;
+	display: inline-block;
 }
+
+
+.container__box {
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 80px;
+}
+.character__box {
+	clear: both;
+	margin: 0 auto;
+	margin-top: 80px;
+	text-align: center;
+}
+
+
 .image{
 	max-width: 100%;
 }
-#availToAttk {
-	clear: both;
+.logo {
+	width: 500px;
 }
+.row {height: 160px;}
+
+#text {
+	background:;
+	margin: 0 auto;
+	width:80%;
+	height: 150px;
+	font-size: 22px;
+}
+.text__box {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#selected {
+	background:;
+	width: 100%;
+	height: 150px;
+}
+#defender {
+	background:;
+	width: 100%;
+	height: 150px;
+}
+#availToAttk {
+	background: red;
+	width: 150px;
+	height: 150px;
+}
+
+/*button*/
+#fight {
+	clear: both;
+	margin-top: 50px;
+}
+
+
+
 </style>
 </head>
 
 
-	<body>
-<div class="container">
-<div class="row">
+<body>
 	<header>
-		<h1>Fast and Furious RPG!</h1>
+		<img class="logo" src="assets/images/pokemon_logo.png">
 	</header>
-</div>
-</div>
 
-<div class="container">
-<div class="row">
-	<h2>Select Your Character</h2>
-	<div id="selectCharacters">
+
+
+<div class="container__box col-sm-12 col-lg-12">
+
+	<div class=" col-sm-3 col-lg-3">
+		<div id="selected">
+
+		</div>
 	</div>
-</div>
+
+	<div class="text__box col-sm-6 col-lg-6">
+		<div id="text">
+		</div>
+		<div id="fight"></div><!-- Button -->
+	</div>
+
+	<div class="col-sm-3 col-lg-3">
+		<div id="defender">
+			
+		</div>
+	</div>
+
 </div>
 
-<div class="container">
-<div class="row">
-	<h2>Defender</h2>
-	<div id="defender"></div>
-</div>
-</div>
 
-<div class="container">
-<div class="row">
-	<div id="fight"></div><!-- Button -->
-</div>
-</div>
+<br />
+<br />
+<hr />
+<div
 
-<div class="container">
-<div class="row">
-	<h2>AvailToAttk</h2>
-	<div id="availToAttk"></div>
-</div>
-</div>
 
+<div class="character__box col-lg-12">
+	<div id="charactersList"></div>
+	<div id="charactersRemaining"></div>
+</div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 <script type="text/javascript">
 
@@ -118,28 +188,28 @@ h1 {
 		
 
 var dominic = {
-	name: "Dominic Toretto", 
+	name: "Pikachu", 
 	health: 160, 
 	attack: 6, 
 	counterAttack: 8, 
 	image: '<img src="assets/images/pikachu.gif" class="image">'
 };
 var brian = {
-	name: "Brian O Conner", 
+	name: "Mewtwo", 
 	health: 140, 
 	attack: 4, 
 	counterAttack: 10, 
 	image: '<img src="assets/images/mewtwo.gif" class="image">'
 };
 var mia = {
-	name: "Mia", 
+	name: "Snorlax", 
 	health: 190, 
 	attack: 4, 
 	counterAttack: 12, 
 	image: '<img src="assets/images/snorlax.gif" class="image">'
 };
 var han = {
-	name: "Han", 
+	name: "Blastoise", 
 	health: 150, 
 	attack: 6, 
 	counterAttack: 7, 
@@ -170,49 +240,64 @@ var characters = [dominicBox, brianBox, miaBox, hanBox];
 var selectedCharacter = [];
 var enemy = [];
 var enemiesLeft = [];
-
+var button = '<p><a class="btn btn-primary btn-lg" href="#" role="button">Atack!</a></p>';
 
 	// Display characters
 	for (var characterIndex = 0; characterIndex < characters.length; characterIndex++) {
-	    $('#selectCharacters').append(characters); 
+	    $('#charactersList').append(characters); 
 	};
 
-	// Fight Button
-	$("#fight").html('<p><a class="btn btn-primary btn-lg" href="#" role="button">RACE!</a></p>');
-
+	$("#text").html('Select your Pokemon!');
 	//Select Character
 	$(".characters").on("click", function(){
-	    $(this).addClass("clickedcharacter").removeClass("characters");
+	    $(this).addClass("clickedcharacter").removeClass("characters").appendTo("#selected");
 	    if ($(".characters").hasClass('characters')){ 
-	    	$(".characters").appendTo('#defender')
-	    					.removeClass("characters") 
-	    					.addClass("charactersRemaining");
+	    	$(".characters").removeClass("characters") 
+	    					.addClass("charactersRemaining")
+	    					.appendTo('#charactersLeft');
+	    	$("#text").html('Select your Enemy!');
 	    }; // End if statement
 
 	    // Select Enemy
 		$(".charactersRemaining").on("click", function(){
-			    $(this).addClass("enemy").removeClass("charactersRemaining");
-			    $('.charactersRemaining').appendTo('#availToAttk');
+			$(this).addClass("enemy").removeClass("charactersRemaining").appendTo("#defender");
+			  	if ($(".charactersRemaining").hasClass('charactersRemaining')){ 
+	    		$(".charactersRemaining").removeClass("charactersRemaining") 
+	    								.addClass("charactersLeft")
+	    								.appendTo('#charactersRemaining');
+	    		$("#text").html('Press attack to battle!<br /><br />' + button);
+
+        if($('#selected .clickedcharacter').length &&  $('#defender .enemy').length)
+        {
+			// $("#fight").addClass("btn").html(button);
+		};
+
+
+	    		};
+
+		    // Select Enemy Remaining 
+			$(".charactersLeft").on("click", function(){
+		    		});
+
+
 		}); // End onClick .charactersRemaining
 
 	}); // End onClick .characters
 // console.log(".clickedcharacter"characters.data());
+ 
 
-    $('.btn').on('click', function(){
-        if($('#selectCharacters .clickedcharacter').length &&  $('#defender .enemy').length)
-        {
-            damage = $(this).data('attack');
-            counter = $('#fighter .foes').data('cattack');
-            playerHP = $('.charContainer').data('hpp');
-            enemyHP = $('#fighter .foes').data('hpp');
-            playerHP -= counter;
-            console.log(playerHP);
-            enemyHP -= damage;
-            console.log();
-            console.log("#selectCharacters.clickedcharacter.name");
+            // damage = $(this).data('attack');
+            // counter = $('#fighter .foes').data('cattack');
+            // playerHP = $('.charContainer').data('hpp');
+            // enemyHP = $('#fighter .foes').data('hpp');
+            // playerHP -= counter;
+            // console.log(playerHP);
+            // enemyHP -= damage;
+            // console.log();
+            // console.log("#charactersList.clickedcharacter.name");
 
-        }
-    })
+
+
 
 
 
