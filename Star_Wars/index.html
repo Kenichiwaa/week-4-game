@@ -2,7 +2,7 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
-	<title>Crystal Game</title>
+	<title>A Pokemon RPG Game! What!?!</title>
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -187,28 +187,28 @@ header {
 // Player chooese character by clicking on the fighter's picture. The player will fight that character for the rest of the game.
 		
 
-var dominic = {
+var pikachu = {
 	name: "Pikachu", 
 	health: 160, 
 	attack: 6, 
 	counterAttack: 8, 
 	image: '<img src="assets/images/pikachu.gif" class="image">'
 };
-var brian = {
+var mewtwo = {
 	name: "Mewtwo", 
 	health: 140, 
 	attack: 4, 
 	counterAttack: 10, 
 	image: '<img src="assets/images/mewtwo.gif" class="image">'
 };
-var mia = {
+var snorlax = {
 	name: "Snorlax", 
 	health: 190, 
 	attack: 4, 
 	counterAttack: 12, 
 	image: '<img src="assets/images/snorlax.gif" class="image">'
 };
-var han = {
+var blastoise = {
 	name: "Blastoise", 
 	health: 150, 
 	attack: 6, 
@@ -216,27 +216,27 @@ var han = {
 	image: '<img src="assets/images/blastoise.gif" class="image">'
 };
 
-var dominicBox = $('<div>')
-    .append(dominic.name,dominic.image,dominic.health)
+var pikachuBox = $('<div>')
+    .append(pikachu.name,pikachu.image,pikachu.health)
     .addClass('characters')
-    .data('health', dominic.health).data('attack', dominic.attack );
+    .data('health', pikachu.health).data('attack', pikachu.attack ).data('counterAttack', pikachu.counterAttack);
 
-var brianBox = $('<div>')
-    .append(brian.name,brian.image,brian.health)
+var mewtwoBox = $('<div>')
+    .append(mewtwo.name,mewtwo.image,mewtwo.health)
     .addClass('characters')
-    .data('health', brian.health).data('attack', brian.attack );
+    .data('health', mewtwo.health).data('attack', mewtwo.attack ).data('counterAttack', pikachu.counterAttack);
 
-var miaBox = $('<div>')
-    .append(mia.name,mia.image,mia.health)
+var snorlaxBox = $('<div>')
+    .append(snorlax.name,snorlax.image,snorlax.health)
     .addClass('characters')
-    .data('health', mia.health).data('attack', mia.attack );
+    .data('health', snorlax.health).data('attack', snorlax.attack ).data('counterAttack', pikachu.counterAttack);
 
-var hanBox = $('<div>')
-    .append(han.name,han.image,han.health)
+var blastoiseBox = $('<div>')
+    .append(blastoise.name,blastoise.image,blastoise.health)
     .addClass('characters')
-    .data('health', han.health).data('attack', han.attack );
+    .data('health', blastoise.health).data('attack', blastoise.attack ).data('counterAttack', pikachu.counterAttack);
 
-var characters = [dominicBox, brianBox, miaBox, hanBox];
+var characters = [pikachuBox, mewtwoBox, snorlaxBox, blastoiseBox];
 var selectedCharacter = [];
 var enemy = [];
 var enemiesLeft = [];
@@ -246,6 +246,7 @@ var button = '<p><a class="btn btn-primary btn-lg" href="#" role="button">Atack!
 	for (var characterIndex = 0; characterIndex < characters.length; characterIndex++) {
 	    $('#charactersList').append(characters); 
 	};
+
 
 	$("#text").html('Select your Pokemon!');
 	//Select Character
@@ -265,24 +266,34 @@ var button = '<p><a class="btn btn-primary btn-lg" href="#" role="button">Atack!
 	    		$(".charactersRemaining").removeClass("charactersRemaining") 
 	    								.addClass("charactersLeft")
 	    								.appendTo('#charactersRemaining');
-	    		$("#text").html('Press attack to battle!<br /><br />' + button);
+	    		$("#text").html('Press attack to battle!<br /><br />');
 
-        if($('#selected .clickedcharacter').length &&  $('#defender .enemy').length)
-        {
-			// $("#fight").addClass("btn").html(button);
-		};
+	    			// If there is a character in player AND enemy section, enable button to start 
+			        if($('#selected .clickedcharacter').length &&  $('#defender .enemy').length){
+			        	$("#text").append(button);
+						    // Attack Button
+							$(button).on("click", function(){
 
-
-	    		};
-
-		    // Select Enemy Remaining 
-			$(".charactersLeft").on("click", function(){
-		    		});
+								alert('boo!');
+						    });
 
 
-		}); // End onClick .charactersRemaining
+			        	console.log($(".clickedcharacter").data('health'));
+			        	console.log($(".clickedcharacter").data('attack'));
+			        	console.log($('.enemy').data('health'));
+			        	console.log($('.enemy').data('counterAttack'));
+					};
+			};
 
-	}); // End onClick .characters
+
+		}); // End onClick .charactersRemaining    Math.pow(base, exponent)
+
+	}); // End .on("Click" of .characters
+
+
+
+
+
 // console.log(".clickedcharacter"characters.data());
  
 
