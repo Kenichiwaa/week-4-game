@@ -183,15 +183,15 @@ var enemiesLeft = [];
 	//Select Character
 	$(".characters").on("click", function(){
 	    $(this).addClass("clickedcharacter").removeClass("characters").appendTo("#defender");
+	    
 	    if ($(".characters").hasClass("characters")){ 
-	    	$(".characters").addClass("charactersRemaining").removeClass("characters");
-	    };
-
-	// Select Enemy
-	$(".charactersRemaining").on("click", function(){
-		    $(this).addClass('enemy').removeClass('charactersRemaining');
-		    $(".enemy").append('#selectedenemy');
-	}); // End onClick .charactersRemaining
+	    	$(".characters").addClass("enemy").removeClass("characters");
+	 	};
+		// Select Enemy
+		$(".enemy").on("click", function(){
+			    $(this).addClass("selectedEnemy").removeClass("enemy");
+			    $(".selectedEnemy").appendTo('#selectedenemy');
+		}); // End onClick .charactersRemaining
 
 	}); // End onClick .characters
 // console.log(".clickedcharacter"characters.data());
