@@ -69,24 +69,22 @@ var button = '<p><a class="btn btn-primary btn-lg" href="#" role="button">Atack!
 	$("#text").html('Select your Pokemon!');
 	//Select Character
 	$(".characters").on("click", function(){
-
 	    $(this).addClass("clickedcharacter").removeClass("characters").appendTo("#selected");
 	    if ($(".characters").hasClass('characters')){ 
-	    	$(".characters").removeClass("characters") 
-	    					.addClass("charactersRemaining")
-	    					.appendTo('#charactersLeft');
+	    	$(".characters").removeClass("characters").addClass("charactersRemaining").appendTo('#charactersLeft');
 	    	$("#text").html('Select your Enemy!');
 	    }; // End if statement
 
 	    // Select Enemy
 		$(".charactersRemaining").on("click", function(){
 			$(this).addClass("enemy").removeClass("charactersRemaining").appendTo("#defender");
+
 			  	if ($(".charactersRemaining").hasClass('charactersRemaining')){ 
-	    		$(".charactersRemaining").removeClass("charactersRemaining") 
-	    								.addClass("charactersLeft")
-	    								.appendTo('#charactersRemaining');
+	    			
+	    			$(".charactersRemaining").removeClass("charactersRemaining")
+	    			.addClass("charactersLeft").appendTo('#charactersRemaining');
 	    		
-	    		$("#text").html('Press attack to battle!<br /><br />');
+	    			$("#text").html('Press attack to battle!<br /><br />'); // Update text
 
 	    			// If there is a character in player AND enemy section, enable button to start 
 			        if($('#selected .clickedcharacter').length &&  $('#defender .enemy').length){
