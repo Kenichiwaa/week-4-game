@@ -134,8 +134,6 @@ header {
 	margin-top: 50px;
 }
 
-
-
 </style>
 </head>
 
@@ -144,8 +142,6 @@ header {
 	<header>
 		<img class="logo" src="assets/images/pokemon_logo.png">
 	</header>
-
-
 
 <div class="container__box col-sm-12 col-lg-12">
 
@@ -191,56 +187,66 @@ var pikachu = {
 	name: "Pikachu", 
 	health: 160, 
 	attack: 6, 
-	counterAttack: 8, 
+	counterAttack: 2, 
 	image: '<img src="assets/images/pikachu.gif" class="image">'
 };
 var mewtwo = {
 	name: "Mewtwo", 
 	health: 140, 
 	attack: 4, 
-	counterAttack: 10, 
+	counterAttack: 2, 
 	image: '<img src="assets/images/mewtwo.gif" class="image">'
 };
 var snorlax = {
 	name: "Snorlax", 
 	health: 190, 
 	attack: 4, 
-	counterAttack: 12, 
+	counterAttack: 2, 
 	image: '<img src="assets/images/snorlax.gif" class="image">'
 };
 var blastoise = {
 	name: "Blastoise", 
 	health: 150, 
 	attack: 6, 
-	counterAttack: 7, 
+	counterAttack: 2, 
 	image: '<img src="assets/images/blastoise.gif" class="image">'
 };
 
 var pikachuBox = $('<div>')
     .append(pikachu.name,pikachu.image,pikachu.health)
     .addClass('characters')
-    .data('health', pikachu.health).data('attack', pikachu.attack ).data('counterAttack', pikachu.counterAttack);
+    .data('health', pikachu.health).data('attack', pikachu.attack )
+    .data('counterAttack', pikachu.counterAttack).data('playerName', pikachu.name);
 
 var mewtwoBox = $('<div>')
     .append(mewtwo.name,mewtwo.image,mewtwo.health)
     .addClass('characters')
-    .data('health', mewtwo.health).data('attack', mewtwo.attack ).data('counterAttack', pikachu.counterAttack);
+    .data('health', mewtwo.health).data('attack', mewtwo.attack )
+    .data('counterAttack', mewtwo.counterAttack).data('playerName', mewtwo.name);
 
 var snorlaxBox = $('<div>')
     .append(snorlax.name,snorlax.image,snorlax.health)
     .addClass('characters')
-    .data('health', snorlax.health).data('attack', snorlax.attack ).data('counterAttack', pikachu.counterAttack);
+    .data('health', snorlax.health).data('attack', snorlax.attack )
+    .data('counterAttack', snorlax.counterAttack).data('playerName', snorlax.name);
 
 var blastoiseBox = $('<div>')
     .append(blastoise.name,blastoise.image,blastoise.health)
     .addClass('characters')
-    .data('health', blastoise.health).data('attack', blastoise.attack ).data('counterAttack', pikachu.counterAttack);
+    .data('health', blastoise.health).data('attack', blastoise.attack )
+    .data('counterAttack', blastoise.counterAttack).data('playerName', blastoise.name);
 
 var characters = [pikachuBox, mewtwoBox, snorlaxBox, blastoiseBox];
 var selectedCharacter = [];
 var enemy = [];
 var enemiesLeft = [];
 var button = '<p><a class="btn btn-primary btn-lg" href="#" role="button">Atack!</a></p>';
+
+
+
+
+
+
 
 	// Display characters
 	for (var characterIndex = 0; characterIndex < characters.length; characterIndex++) {
@@ -266,17 +272,57 @@ var button = '<p><a class="btn btn-primary btn-lg" href="#" role="button">Atack!
 	    		$(".charactersRemaining").removeClass("charactersRemaining") 
 	    								.addClass("charactersLeft")
 	    								.appendTo('#charactersRemaining');
+	    		
 	    		$("#text").html('Press attack to battle!<br /><br />');
 
 	    			// If there is a character in player AND enemy section, enable button to start 
 			        if($('#selected .clickedcharacter').length &&  $('#defender .enemy').length){
 			        	$("#text").append(button);
+						   
+			        			var playerName = $(".clickedcharacter").data('name');
+								var playerHP = $(".clickedcharacter").data('health');
+								var playerAtk = $(".clickedcharacter").data('attack');
+								var platerCtrAtk = $(".clickedcharacter").data('counterAttack');
+
+								var computerName = $('.enemy').data('name');
+								var computerHP = $('.enemy').data('health');
+								var computerAtk = $('.enemy').data('attack');
+
 						    // Attack Button
-							$(button).on("click", function(){
+							$(".btn").click(function() {
 
-								alert('boo!');
+								playerHP = playerHP - computerAtk;
+								playerHP
+								computerHP = computerHP - (Math.pow(playerAtk, platerCtrAtk));
+
+
+							if (computerHP <= 0) {
+								$('.enemy').remove();
+								$("#text").html('You have defeated' + computerName + ', you can choose to fight another enemy!<br /><br />');
+									
+									$('.charactersLeft').click(function()	{
+										if($('#selected .clickedcharacter').length &&  $('#defender .enemy').length){
+							        		$("#text").append(button);
+
+							        		$(".btn").click(function() {
+
+											});
+
+												var computerName = $('.enemy').data('name');
+												var computerHP = $('.enemy').data('health');
+												var computerAtk = $('.enemy').data('attack');
+												console.log(computerName);
+
+											playerHP = playerHP - computerAtk;
+											computerHP = computerHP - (Math.pow(playerAtk, 2)); 
+
+							        	};
+							        });
+							};
+
+								console.log(playerHP);
+								console.log(computerHP);
 						    });
-
 
 			        	console.log($(".clickedcharacter").data('health'));
 			        	console.log($(".clickedcharacter").data('attack'));
