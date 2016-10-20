@@ -1,11 +1,23 @@
 
+
+@font-face {
+    font-family: PokemonGB;
+    src: url(assets/fonts/PokemonGB.ttf);
+}
+
+div {
+    font-family: PokemonGB;
+}
+
 h1,h2,h3,h4,h5 {
 	color: #F0F8FF;
+    font-family: PokemonGB;
 }
 
 header {
 	margin-top: 0px;
 }
+
 #fight {
 	clear: both;
 	margin-top: 800px;

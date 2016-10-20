@@ -66,14 +66,15 @@ var button = '<p><a class="btn btn-primary btn-lg" href="#" role="button">Atack!
 	};
 
 
-	$("#text").html('Select your Pokemon!');
-	//Select Character
-	$(".characters").on("click", function(){
+	$("#text").html('Select your Pokemon!'); // Update text
+
+	$(".characters").on("click", function(){ // On click of characters
 	    $(this).addClass("clickedcharacter").removeClass("characters").appendTo("#selected");
-	    if ($(".characters").hasClass('characters')){ 
-	    	$(".characters").removeClass("characters").addClass("charactersRemaining").appendTo('#charactersLeft');
+
+			$(".characters").removeClass("characters").addClass("charactersRemaining").appendTo('#charactersLeft');
+
 	    	$("#text").html('Select your Enemy!');
-	    }; // End if statement
+
 
 	    // Select Enemy
 		$(".charactersRemaining").on("click", function(){
@@ -90,26 +91,26 @@ var button = '<p><a class="btn btn-primary btn-lg" href="#" role="button">Atack!
 			        if($('#selected .clickedcharacter').length &&  $('#defender .enemy').length){
 			        	$("#text").append(button);
 						   
-			        			var playerName = $(".clickedcharacter").data('name');
+			        			var playerName = $(".clickedcharacter").data('playerName');
 								var playerHP = $(".clickedcharacter").data('health');
 								var playerAtk = $(".clickedcharacter").data('attack');
 								var platerCtrAtk = $(".clickedcharacter").data('counterAttack');
 
-								var computerName = $('.enemy').data('name');
+								var computerName = $('.enemy').data('playerName');
 								var computerHP = $('.enemy').data('health');
 								var computerAtk = $('.enemy').data('attack');
 
 						    // Attack Button
 							$(".btn").click(function() {
-
 								playerHP = playerHP - computerAtk;
-								playerHP
+
 								computerHP = computerHP - (Math.pow(playerAtk, platerCtrAtk));
 
+								
 
-							if (computerHP <= 0) {
+							if (computerHP <= 0) { // if computer hp is less that 0, remove .enemy
 								$('.enemy').remove();
-								$("#text").html('You have defeated' + computerName + ', you can choose to fight another enemy!<br /><br />');
+								$("#text").html('You defeated ' + computerName + '! <br /><br />Select another enemy to fight!<br /><br />');
 									
 									$('.charactersLeft').click(function()	{
 										if($('#selected .clickedcharacter').length &&  $('#defender .enemy').length){
